@@ -25,6 +25,7 @@
     "test:int": "cross-env NODE_OPTIONS=--no-deprecation vitest run --config ./vitest.config.mts"
   },
   "dependencies": {
+    "@ai-stack/payloadcms": "^3.2.22-beta",
     "@opennextjs/cloudflare": "^1.6.5",
     "@payloadcms/db-d1-sqlite": "3.63.0",
     "@payloadcms/next": "3.63.0",
@@ -37,7 +38,8 @@
     "next": "15.4.7",
     "payload": "3.63.0",
     "react": "19.1.0",
-    "react-dom": "19.1.0"
+    "react-dom": "19.1.0",
+    "zod": "^4.1.12"
   },
   "devDependencies": {
     "@playwright/test": "1.56.1",

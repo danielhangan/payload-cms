@@ -7,9 +7,20 @@ import { fileURLToPath } from 'url'
 import { CloudflareContext, getCloudflareContext } from '@opennextjs/cloudflare'
 import { GetPlatformProxyOptions } from 'wrangler'
 import { r2Storage } from '@payloadcms/storage-r2'
+import { payloadAiPlugin } from '@ai-stack/payloadcms'
 
 import { Users } from './collections/Users'
 import { Media } from './collections/Media'
+import { Authors } from './collections/Authors'
+import { Tags } from './collections/Tags'
+import { Categories } from './collections/Categories'
+import {
+  DansVPNPosts,
+  DansUGCModelsPosts,
+  UGCHumansPosts,
+  ClippersDBPosts,
+} from './collections/Blogs'
+import { CaseStudies } from './collections/CaseStudies'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -27,7 +38,18 @@ export default buildConfig({
       baseDir: path.resolve(dirname),
     },
   },
-  collections: [Users, Media],
+  collections: [
+    Users,
+    Media,
+    Authors,
+    Tags,
+    Categories,
+    DansVPNPosts,
+    DansUGCModelsPosts,
+    UGCHumansPosts,
+    ClippersDBPosts,
+    CaseStudies,
+  ],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',
   typescript: {
@@ -41,6 +63,22 @@ export default buildConfig({
     r2Storage({
       bucket: cloudflare.env.R2,
       collections: { media: true },
+    }),
+    payloadAiPlugin({
+      collections: {
+        'dansvpn-posts': true,
+        'dansugcmodels-posts': true,
+        'ugchumans-posts': true,
+        'clippersdb-posts': true,
+        'case-studies': true,
+      },
+      uploadCollectionSlug: 'media',
+      access: {
+        generate: ({ req }) => !!req.user,
+        settings: ({ req }) => !!req.user,
+      },
+      debugging: false,
+      disableSponsorMessage: false,
     }),
   ],
 })
