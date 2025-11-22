@@ -129,7 +129,7 @@ const createBlogCollection = ({
       name: 'relatedArticles',
       label: 'Related Articles',
       type: 'relationship',
-      relationTo: blogSlugs as unknown as string[],
+      relationTo: blogSlugs as any,
       hasMany: true,
     },
     {
