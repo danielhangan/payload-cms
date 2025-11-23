@@ -320,6 +320,7 @@ export interface DansvpnPost {
     | null;
   meta?: {
     site?: string | null;
+    description?: string | null;
     /**
      * Optional canonical URL on https://dansvpn.com
      */
@@ -406,6 +407,7 @@ export interface DansugcmodelsPost {
     | null;
   meta?: {
     site?: string | null;
+    description?: string | null;
     /**
      * Optional canonical URL on https://dansugcmodels.com
      */
@@ -492,6 +494,7 @@ export interface UgchumansPost {
     | null;
   meta?: {
     site?: string | null;
+    description?: string | null;
     /**
      * Optional canonical URL on https://ugchumans.com
      */
@@ -578,6 +581,7 @@ export interface ClippersdbPost {
     | null;
   meta?: {
     site?: string | null;
+    description?: string | null;
     /**
      * Optional canonical URL on https://clippersdb.com
      */

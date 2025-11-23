@@ -178,6 +178,14 @@ const createBlogCollection = ({
           defaultValue: label,
         },
         {
+          name: 'description',
+          label: 'Meta Description',
+          type: 'textarea',
+          admin: {
+            description: 'Optional SEO description used for link previews.',
+          },
+        },
+        {
           name: 'originalUrl',
           type: 'text',
           admin: {
