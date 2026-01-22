@@ -21,6 +21,7 @@ import {
   ClippersDBPosts,
 } from './collections/Blogs'
 import { CaseStudies } from './collections/CaseStudies'
+import { DansUGCModelsLeadMagnets } from './collections/DansUGCModelsLeadMagnets'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -49,6 +50,7 @@ export default buildConfig({
     UGCHumansPosts,
     ClippersDBPosts,
     CaseStudies,
+    DansUGCModelsLeadMagnets,
   ],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',
