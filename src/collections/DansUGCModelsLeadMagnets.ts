@@ -20,10 +20,7 @@ export const DansUGCModelsLeadMagnets: CollectionConfig = {
       type: 'text',
       required: true,
     },
-    {
-      ...slugField(),
-      unique: true,
-    },
+    slugField(),
     {
       name: 'status',
       type: 'select',
