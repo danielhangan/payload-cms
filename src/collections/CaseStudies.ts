@@ -72,19 +72,36 @@ export const CaseStudies: CollectionConfig = {
       type: 'text',
     },
     {
-      name: 'summary',
-      label: 'Summary',
-      type: 'textarea',
+      name: 'about',
+      label: 'About',
+      type: 'richText',
+      admin: {
+        description: 'About the client / app — who they are and what they do.',
+      },
     },
     {
-      name: 'problem',
-      label: 'Problem',
+      name: 'challenge',
+      label: 'The Challenge',
       type: 'richText',
+      admin: {
+        description: 'What problem or challenge did they face before using DansUGC?',
+      },
     },
     {
-      name: 'solution',
-      label: 'Solution',
+      name: 'howTheyUsedDansUGC',
+      label: 'How They Used DansUGC',
       type: 'richText',
+      admin: {
+        description: 'How they leveraged DansUGC to solve their challenge.',
+      },
+    },
+    {
+      name: 'resultsAchieved',
+      label: 'Results Achieved with DansUGC',
+      type: 'richText',
+      admin: {
+        description: 'The outcomes and results they achieved.',
+      },
     },
     {
       name: 'results',
@@ -164,46 +181,6 @@ export const CaseStudies: CollectionConfig = {
       ],
     },
     {
-      name: 'testimonial',
-      label: 'Testimonial',
-      type: 'group',
-      fields: [
-        {
-          name: 'quote',
-          type: 'textarea',
-        },
-        {
-          name: 'personName',
-          type: 'text',
-        },
-        {
-          name: 'role',
-          type: 'text',
-        },
-        {
-          name: 'company',
-          type: 'text',
-        },
-      ],
-    },
-    {
-      name: 'platforms',
-      label: 'Platforms',
-      type: 'array',
-      fields: [
-        {
-          name: 'name',
-          type: 'text',
-          required: true,
-        },
-      ],
-    },
-    {
-      name: 'budgetRange',
-      label: 'Budget Range',
-      type: 'text',
-    },
-    {
       name: 'author',
       type: 'relationship',
       relationTo: 'authors',
@@ -231,49 +208,6 @@ export const CaseStudies: CollectionConfig = {
         'clippersdb-posts',
       ],
       hasMany: true,
-    },
-    {
-      name: 'externalLinks',
-      label: 'External Links',
-      type: 'array',
-      fields: [
-        {
-          name: 'label',
-          type: 'text',
-          required: true,
-        },
-        {
-          name: 'url',
-          type: 'text',
-          required: true,
-        },
-      ],
-    },
-    {
-      name: 'embeds',
-      label: 'Embeds',
-      type: 'array',
-      fields: [
-        {
-          name: 'type',
-          type: 'select',
-          required: true,
-          options: [
-            { label: 'YouTube', value: 'youtube' },
-            { label: 'Tweet', value: 'tweet' },
-            { label: 'Generic URL', value: 'link' },
-          ],
-        },
-        {
-          name: 'url',
-          type: 'text',
-          required: true,
-        },
-        {
-          name: 'title',
-          type: 'text',
-        },
-      ],
     },
     {
       name: 'meta',

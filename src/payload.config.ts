@@ -7,7 +7,6 @@ import { fileURLToPath } from 'url'
 import { CloudflareContext, getCloudflareContext } from '@opennextjs/cloudflare'
 import { GetPlatformProxyOptions } from 'wrangler'
 import { r2Storage } from '@payloadcms/storage-r2'
-import { payloadAiPlugin } from '@ai-stack/payloadcms'
 
 import { Users } from './collections/Users'
 import { Media } from './collections/Media'
@@ -65,22 +64,6 @@ export default buildConfig({
     r2Storage({
       bucket: cloudflare.env.R2,
       collections: { media: true },
-    }),
-    payloadAiPlugin({
-      collections: {
-        'dansvpn-posts': true,
-        'dansugcmodels-posts': true,
-        'ugchumans-posts': true,
-        'clippersdb-posts': true,
-        'case-studies': true,
-      },
-      uploadCollectionSlug: 'media',
-      access: {
-        generate: ({ req }) => !!req.user,
-        settings: ({ req }) => !!req.user,
-      },
-      debugging: false,
-      disableSponsorMessage: false,
     }),
   ],
 })

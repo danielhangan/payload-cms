@@ -78,7 +78,6 @@ export interface Config {
     'clippersdb-posts': ClippersdbPost;
     'case-studies': CaseStudy;
     'dansugcmodels-lead-magnets': DansugcmodelsLeadMagnet;
-    'plugin-ai-instructions': PluginAiInstruction;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -97,7 +96,6 @@ export interface Config {
     'clippersdb-posts': ClippersdbPostsSelect<false> | ClippersdbPostsSelect<true>;
     'case-studies': CaseStudiesSelect<false> | CaseStudiesSelect<true>;
     'dansugcmodels-lead-magnets': DansugcmodelsLeadMagnetsSelect<false> | DansugcmodelsLeadMagnetsSelect<true>;
-    'plugin-ai-instructions': PluginAiInstructionsSelect<false> | PluginAiInstructionsSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
@@ -628,8 +626,10 @@ export interface CaseStudy {
   heroMedia?: (number | null) | Media;
   clientName: string;
   industry?: string | null;
-  summary?: string | null;
-  problem?: {
+  /**
+   * About the client / app — who they are and what they do.
+   */
+  about?: {
     root: {
       type: string;
       children: {
@@ -644,7 +644,46 @@ export interface CaseStudy {
     };
     [k: string]: unknown;
   } | null;
-  solution?: {
+  /**
+   * What problem or challenge did they face before using DansUGC?
+   */
+  challenge?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  /**
+   * How they leveraged DansUGC to solve their challenge.
+   */
+  howTheyUsedDansUGC?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  /**
+   * The outcomes and results they achieved.
+   */
+  resultsAchieved?: {
     root: {
       type: string;
       children: {
@@ -691,19 +730,6 @@ export interface CaseStudy {
         id?: string | null;
       }[]
     | null;
-  testimonial?: {
-    quote?: string | null;
-    personName?: string | null;
-    role?: string | null;
-    company?: string | null;
-  };
-  platforms?:
-    | {
-        name: string;
-        id?: string | null;
-      }[]
-    | null;
-  budgetRange?: string | null;
   author?: (number | null) | Author;
   tags?: (number | Tag)[] | null;
   categories?: (number | Category)[] | null;
@@ -726,21 +752,6 @@ export interface CaseStudy {
             value: number | ClippersdbPost;
           }
       )[]
-    | null;
-  externalLinks?:
-    | {
-        label: string;
-        url: string;
-        id?: string | null;
-      }[]
-    | null;
-  embeds?:
-    | {
-        type: 'youtube' | 'tweet' | 'link';
-        url: string;
-        title?: string | null;
-        id?: string | null;
-      }[]
     | null;
   meta?: {
     originalUrl?: string | null;
@@ -815,81 +826,6 @@ export interface DansugcmodelsLeadMagnet {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "plugin-ai-instructions".
- */
-export interface PluginAiInstruction {
-  id: number;
-  /**
-   * Please don't change this unless you're sure of what you're doing
-   */
-  'schema-path'?: string | null;
-  /**
-   * Please don't change this unless you're sure of what you're doing
-   */
-  'field-type'?: ('text' | 'textarea' | 'upload' | 'richText') | null;
-  'relation-to'?: string | null;
-  'model-id'?: ('Oai-text' | 'dall-e' | 'gpt-image-1' | 'tts' | 'Oai-object') | null;
-  /**
-   * Please reload your collection after applying the changes
-   */
-  disabled?: boolean | null;
-  /**
-   * Click 'Compose' to run this custom prompt and generate content
-   */
-  prompt?: string | null;
-  images?:
-    | {
-        /**
-         * Please make sure the image is publicly accessible.
-         */
-        image?: (number | null) | Media;
-        id?: string | null;
-      }[]
-    | null;
-  system?: string | null;
-  layout?: string | null;
-  'Oai-text-settings'?: {
-    model?:
-      | ('gpt-5' | 'gpt-5-mini' | 'gpt-5-nano' | 'gpt-4.1' | 'gpt-4o' | 'gpt-4-turbo' | 'gpt-4o-mini' | 'gpt-3.5-turbo')
-      | null;
-    maxTokens?: number | null;
-    temperature?: number | null;
-    extractAttachments?: boolean | null;
-  };
-  'dalle-e-settings'?: {
-    version?: ('dall-e-3' | 'dall-e-2') | null;
-    size?: ('256x256' | '512x512' | '1024x1024' | '1792x1024' | '1024x1792') | null;
-    style?: ('vivid' | 'natural') | null;
-    'enable-prompt-optimization'?: boolean | null;
-  };
-  'gpt-image-1-settings'?: {
-    version?: 'gpt-image-1' | null;
-    size?: ('1024x1024' | '1024x1536' | '1536x1024' | 'auto') | null;
-    quality?: ('low' | 'medium' | 'high' | 'auto') | null;
-    output_format?: ('png' | 'jpeg' | 'webp') | null;
-    output_compression?: number | null;
-    background?: ('white' | 'transparent') | null;
-    moderation?: ('auto' | 'low') | null;
-  };
-  'Oai-tts-settings'?: {
-    voice?: ('alloy' | 'echo' | 'fable' | 'onyx' | 'nova' | 'shimmer') | null;
-    model?: ('tts-1' | 'tts-1-hd') | null;
-    response_format?: ('mp3' | 'opus' | 'aac' | 'flac' | 'wav' | 'pcm') | null;
-    speed?: number | null;
-  };
-  'Oai-object-settings'?: {
-    model?:
-      | ('gpt-5' | 'gpt-5-mini' | 'gpt-5-nano' | 'gpt-4.1' | 'gpt-4o' | 'gpt-4-turbo' | 'gpt-4o-mini' | 'gpt-3.5-turbo')
-      | null;
-    maxTokens?: number | null;
-    temperature?: number | null;
-    extractAttachments?: boolean | null;
-  };
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-kv".
  */
 export interface PayloadKv {
@@ -955,10 +891,6 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'dansugcmodels-lead-magnets';
         value: number | DansugcmodelsLeadMagnet;
-      } | null)
-    | ({
-        relationTo: 'plugin-ai-instructions';
-        value: number | PluginAiInstruction;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -1295,9 +1227,10 @@ export interface CaseStudiesSelect<T extends boolean = true> {
   heroMedia?: T;
   clientName?: T;
   industry?: T;
-  summary?: T;
-  problem?: T;
-  solution?: T;
+  about?: T;
+  challenge?: T;
+  howTheyUsedDansUGC?: T;
+  resultsAchieved?: T;
   results?:
     | T
     | {
@@ -1318,40 +1251,10 @@ export interface CaseStudiesSelect<T extends boolean = true> {
         platform?: T;
         id?: T;
       };
-  testimonial?:
-    | T
-    | {
-        quote?: T;
-        personName?: T;
-        role?: T;
-        company?: T;
-      };
-  platforms?:
-    | T
-    | {
-        name?: T;
-        id?: T;
-      };
-  budgetRange?: T;
   author?: T;
   tags?: T;
   categories?: T;
   relatedPosts?: T;
-  externalLinks?:
-    | T
-    | {
-        label?: T;
-        url?: T;
-        id?: T;
-      };
-  embeds?:
-    | T
-    | {
-        type?: T;
-        url?: T;
-        title?: T;
-        id?: T;
-      };
   meta?:
     | T
     | {
@@ -1406,71 +1309,6 @@ export interface DansugcmodelsLeadMagnetsSelect<T extends boolean = true> {
   loopsTransactionalId?: T;
   metaTitle?: T;
   metaDescription?: T;
-  updatedAt?: T;
-  createdAt?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "plugin-ai-instructions_select".
- */
-export interface PluginAiInstructionsSelect<T extends boolean = true> {
-  'schema-path'?: T;
-  'field-type'?: T;
-  'relation-to'?: T;
-  'model-id'?: T;
-  disabled?: T;
-  prompt?: T;
-  images?:
-    | T
-    | {
-        image?: T;
-        id?: T;
-      };
-  system?: T;
-  layout?: T;
-  'Oai-text-settings'?:
-    | T
-    | {
-        model?: T;
-        maxTokens?: T;
-        temperature?: T;
-        extractAttachments?: T;
-      };
-  'dalle-e-settings'?:
-    | T
-    | {
-        version?: T;
-        size?: T;
-        style?: T;
-        'enable-prompt-optimization'?: T;
-      };
-  'gpt-image-1-settings'?:
-    | T
-    | {
-        version?: T;
-        size?: T;
-        quality?: T;
-        output_format?: T;
-        output_compression?: T;
-        background?: T;
-        moderation?: T;
-      };
-  'Oai-tts-settings'?:
-    | T
-    | {
-        voice?: T;
-        model?: T;
-        response_format?: T;
-        speed?: T;
-      };
-  'Oai-object-settings'?:
-    | T
-    | {
-        model?: T;
-        maxTokens?: T;
-        temperature?: T;
-        extractAttachments?: T;
-      };
   updatedAt?: T;
   createdAt?: T;
 }
