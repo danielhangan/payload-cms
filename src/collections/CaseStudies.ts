@@ -48,6 +48,16 @@ export const CaseStudies: CollectionConfig = {
       type: 'date',
     },
     {
+      name: 'appLogo',
+      type: 'upload',
+      relationTo: 'media',
+      label: 'App Logo',
+      admin: {
+        description:
+          'Square logo of the case study subject (app / brand). Recommended: 512×512 PNG with transparent background.',
+      },
+    },
+    {
       name: 'heroMedia',
       type: 'upload',
       relationTo: 'media',

@@ -77,6 +77,8 @@ export interface Config {
     'ugchumans-posts': UgchumansPost;
     'clippersdb-posts': ClippersdbPost;
     'case-studies': CaseStudy;
+    'dansugcmodels-lead-magnets': DansugcmodelsLeadMagnet;
+    'plugin-ai-instructions': PluginAiInstruction;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -94,6 +96,8 @@ export interface Config {
     'ugchumans-posts': UgchumansPostsSelect<false> | UgchumansPostsSelect<true>;
     'clippersdb-posts': ClippersdbPostsSelect<false> | ClippersdbPostsSelect<true>;
     'case-studies': CaseStudiesSelect<false> | CaseStudiesSelect<true>;
+    'dansugcmodels-lead-magnets': DansugcmodelsLeadMagnetsSelect<false> | DansugcmodelsLeadMagnetsSelect<true>;
+    'plugin-ai-instructions': PluginAiInstructionsSelect<false> | PluginAiInstructionsSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
@@ -320,6 +324,9 @@ export interface DansvpnPost {
     | null;
   meta?: {
     site?: string | null;
+    /**
+     * Optional SEO description used for link previews.
+     */
     description?: string | null;
     /**
      * Optional canonical URL on https://dansvpn.com
@@ -407,6 +414,9 @@ export interface DansugcmodelsPost {
     | null;
   meta?: {
     site?: string | null;
+    /**
+     * Optional SEO description used for link previews.
+     */
     description?: string | null;
     /**
      * Optional canonical URL on https://dansugcmodels.com
@@ -494,6 +504,9 @@ export interface UgchumansPost {
     | null;
   meta?: {
     site?: string | null;
+    /**
+     * Optional SEO description used for link previews.
+     */
     description?: string | null;
     /**
      * Optional canonical URL on https://ugchumans.com
@@ -581,6 +594,9 @@ export interface ClippersdbPost {
     | null;
   meta?: {
     site?: string | null;
+    /**
+     * Optional SEO description used for link previews.
+     */
     description?: string | null;
     /**
      * Optional canonical URL on https://clippersdb.com
@@ -605,6 +621,10 @@ export interface CaseStudy {
   status?: ('draft' | 'published' | 'archived') | null;
   site: 'dansvpn' | 'dansugcmodels' | 'ugchumans' | 'clippersdb';
   publishedDate?: string | null;
+  /**
+   * Square logo of the case study subject (app / brand). Recommended: 512×512 PNG with transparent background.
+   */
+  appLogo?: (number | null) | Media;
   heroMedia?: (number | null) | Media;
   clientName: string;
   industry?: string | null;
@@ -705,6 +725,146 @@ export interface CaseStudy {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "dansugcmodels-lead-magnets".
+ */
+export interface DansugcmodelsLeadMagnet {
+  id: number;
+  title: string;
+  /**
+   * When enabled, the slug will auto-generate from the title field on save and autosave.
+   */
+  generateSlug?: boolean | null;
+  slug: string;
+  status?: ('draft' | 'published') | null;
+  headline?: string | null;
+  subheadline?: string | null;
+  stats?:
+    | {
+        value: string;
+        label: string;
+        icon?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  videoExamples?:
+    | {
+        videoUrl: string;
+        thumbnailUrl?: string | null;
+        title?: string | null;
+        views?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  imageExamples?:
+    | {
+        image: number | Media;
+        caption?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  offerTitle?: string | null;
+  offerItems?:
+    | {
+        item: string;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Tag for email segmentation
+   */
+  loopsUserGroup?: string | null;
+  /**
+   * Email template ID
+   */
+  loopsTransactionalId?: string | null;
+  /**
+   * SEO title
+   */
+  metaTitle?: string | null;
+  /**
+   * SEO description
+   */
+  metaDescription?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "plugin-ai-instructions".
+ */
+export interface PluginAiInstruction {
+  id: number;
+  /**
+   * Please don't change this unless you're sure of what you're doing
+   */
+  'schema-path'?: string | null;
+  /**
+   * Please don't change this unless you're sure of what you're doing
+   */
+  'field-type'?: ('text' | 'textarea' | 'upload' | 'richText') | null;
+  'relation-to'?: string | null;
+  'model-id'?: ('Oai-text' | 'dall-e' | 'gpt-image-1' | 'tts' | 'Oai-object') | null;
+  /**
+   * Please reload your collection after applying the changes
+   */
+  disabled?: boolean | null;
+  /**
+   * Click 'Compose' to run this custom prompt and generate content
+   */
+  prompt?: string | null;
+  images?:
+    | {
+        /**
+         * Please make sure the image is publicly accessible.
+         */
+        image?: (number | null) | Media;
+        id?: string | null;
+      }[]
+    | null;
+  system?: string | null;
+  layout?: string | null;
+  'Oai-text-settings'?: {
+    model?:
+      | ('gpt-5' | 'gpt-5-mini' | 'gpt-5-nano' | 'gpt-4.1' | 'gpt-4o' | 'gpt-4-turbo' | 'gpt-4o-mini' | 'gpt-3.5-turbo')
+      | null;
+    maxTokens?: number | null;
+    temperature?: number | null;
+    extractAttachments?: boolean | null;
+  };
+  'dalle-e-settings'?: {
+    version?: ('dall-e-3' | 'dall-e-2') | null;
+    size?: ('256x256' | '512x512' | '1024x1024' | '1792x1024' | '1024x1792') | null;
+    style?: ('vivid' | 'natural') | null;
+    'enable-prompt-optimization'?: boolean | null;
+  };
+  'gpt-image-1-settings'?: {
+    version?: 'gpt-image-1' | null;
+    size?: ('1024x1024' | '1024x1536' | '1536x1024' | 'auto') | null;
+    quality?: ('low' | 'medium' | 'high' | 'auto') | null;
+    output_format?: ('png' | 'jpeg' | 'webp') | null;
+    output_compression?: number | null;
+    background?: ('white' | 'transparent') | null;
+    moderation?: ('auto' | 'low') | null;
+  };
+  'Oai-tts-settings'?: {
+    voice?: ('alloy' | 'echo' | 'fable' | 'onyx' | 'nova' | 'shimmer') | null;
+    model?: ('tts-1' | 'tts-1-hd') | null;
+    response_format?: ('mp3' | 'opus' | 'aac' | 'flac' | 'wav' | 'pcm') | null;
+    speed?: number | null;
+  };
+  'Oai-object-settings'?: {
+    model?:
+      | ('gpt-5' | 'gpt-5-mini' | 'gpt-5-nano' | 'gpt-4.1' | 'gpt-4o' | 'gpt-4-turbo' | 'gpt-4o-mini' | 'gpt-3.5-turbo')
+      | null;
+    maxTokens?: number | null;
+    temperature?: number | null;
+    extractAttachments?: boolean | null;
+  };
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-kv".
  */
 export interface PayloadKv {
@@ -766,6 +926,14 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'case-studies';
         value: number | CaseStudy;
+      } | null)
+    | ({
+        relationTo: 'dansugcmodels-lead-magnets';
+        value: number | DansugcmodelsLeadMagnet;
+      } | null)
+    | ({
+        relationTo: 'plugin-ai-instructions';
+        value: number | PluginAiInstruction;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -934,6 +1102,7 @@ export interface DansvpnPostsSelect<T extends boolean = true> {
     | T
     | {
         site?: T;
+        description?: T;
         originalUrl?: T;
       };
   updatedAt?: T;
@@ -982,6 +1151,7 @@ export interface DansugcmodelsPostsSelect<T extends boolean = true> {
     | T
     | {
         site?: T;
+        description?: T;
         originalUrl?: T;
       };
   updatedAt?: T;
@@ -1030,6 +1200,7 @@ export interface UgchumansPostsSelect<T extends boolean = true> {
     | T
     | {
         site?: T;
+        description?: T;
         originalUrl?: T;
       };
   updatedAt?: T;
@@ -1078,6 +1249,7 @@ export interface ClippersdbPostsSelect<T extends boolean = true> {
     | T
     | {
         site?: T;
+        description?: T;
         originalUrl?: T;
       };
   updatedAt?: T;
@@ -1094,6 +1266,7 @@ export interface CaseStudiesSelect<T extends boolean = true> {
   status?: T;
   site?: T;
   publishedDate?: T;
+  appLogo?: T;
   heroMedia?: T;
   clientName?: T;
   industry?: T;
@@ -1145,6 +1318,120 @@ export interface CaseStudiesSelect<T extends boolean = true> {
     | T
     | {
         originalUrl?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "dansugcmodels-lead-magnets_select".
+ */
+export interface DansugcmodelsLeadMagnetsSelect<T extends boolean = true> {
+  title?: T;
+  generateSlug?: T;
+  slug?: T;
+  status?: T;
+  headline?: T;
+  subheadline?: T;
+  stats?:
+    | T
+    | {
+        value?: T;
+        label?: T;
+        icon?: T;
+        id?: T;
+      };
+  videoExamples?:
+    | T
+    | {
+        videoUrl?: T;
+        thumbnailUrl?: T;
+        title?: T;
+        views?: T;
+        id?: T;
+      };
+  imageExamples?:
+    | T
+    | {
+        image?: T;
+        caption?: T;
+        id?: T;
+      };
+  offerTitle?: T;
+  offerItems?:
+    | T
+    | {
+        item?: T;
+        id?: T;
+      };
+  loopsUserGroup?: T;
+  loopsTransactionalId?: T;
+  metaTitle?: T;
+  metaDescription?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "plugin-ai-instructions_select".
+ */
+export interface PluginAiInstructionsSelect<T extends boolean = true> {
+  'schema-path'?: T;
+  'field-type'?: T;
+  'relation-to'?: T;
+  'model-id'?: T;
+  disabled?: T;
+  prompt?: T;
+  images?:
+    | T
+    | {
+        image?: T;
+        id?: T;
+      };
+  system?: T;
+  layout?: T;
+  'Oai-text-settings'?:
+    | T
+    | {
+        model?: T;
+        maxTokens?: T;
+        temperature?: T;
+        extractAttachments?: T;
+      };
+  'dalle-e-settings'?:
+    | T
+    | {
+        version?: T;
+        size?: T;
+        style?: T;
+        'enable-prompt-optimization'?: T;
+      };
+  'gpt-image-1-settings'?:
+    | T
+    | {
+        version?: T;
+        size?: T;
+        quality?: T;
+        output_format?: T;
+        output_compression?: T;
+        background?: T;
+        moderation?: T;
+      };
+  'Oai-tts-settings'?:
+    | T
+    | {
+        voice?: T;
+        model?: T;
+        response_format?: T;
+        speed?: T;
+      };
+  'Oai-object-settings'?:
+    | T
+    | {
+        model?: T;
+        maxTokens?: T;
+        temperature?: T;
+        extractAttachments?: T;
       };
   updatedAt?: T;
   createdAt?: T;
