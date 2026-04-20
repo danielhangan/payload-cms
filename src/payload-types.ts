@@ -666,6 +666,31 @@ export interface CaseStudy {
         id?: string | null;
       }[]
     | null;
+  /**
+   * Showcase cards for individual video creatives with performance metrics.
+   */
+  creatives?:
+    | {
+        video: number | Media;
+        title: string;
+        subtitle?: string | null;
+        description?: string | null;
+        /**
+         * e.g. "2.4m"
+         */
+        views?: string | null;
+        /**
+         * e.g. "11k"
+         */
+        saves?: string | null;
+        /**
+         * e.g. "37%"
+         */
+        thumbstopRate?: string | null;
+        platform?: ('tiktok' | 'instagram' | 'youtube') | null;
+        id?: string | null;
+      }[]
+    | null;
   testimonial?: {
     quote?: string | null;
     personName?: string | null;
@@ -1278,6 +1303,19 @@ export interface CaseStudiesSelect<T extends boolean = true> {
     | {
         label?: T;
         value?: T;
+        id?: T;
+      };
+  creatives?:
+    | T
+    | {
+        video?: T;
+        title?: T;
+        subtitle?: T;
+        description?: T;
+        views?: T;
+        saves?: T;
+        thumbstopRate?: T;
+        platform?: T;
         id?: T;
       };
   testimonial?:

@@ -104,6 +104,66 @@ export const CaseStudies: CollectionConfig = {
       ],
     },
     {
+      name: 'creatives',
+      label: 'Creatives',
+      type: 'array',
+      admin: {
+        description: 'Showcase cards for individual video creatives with performance metrics.',
+      },
+      fields: [
+        {
+          name: 'video',
+          type: 'upload',
+          relationTo: 'media',
+          required: true,
+        },
+        {
+          name: 'title',
+          type: 'text',
+          required: true,
+        },
+        {
+          name: 'subtitle',
+          type: 'text',
+        },
+        {
+          name: 'description',
+          type: 'textarea',
+        },
+        {
+          name: 'views',
+          type: 'text',
+          admin: {
+            description: 'e.g. "2.4m"',
+          },
+        },
+        {
+          name: 'saves',
+          type: 'text',
+          admin: {
+            description: 'e.g. "11k"',
+          },
+        },
+        {
+          name: 'thumbstopRate',
+          label: 'Thumbstop Rate',
+          type: 'text',
+          admin: {
+            description: 'e.g. "37%"',
+          },
+        },
+        {
+          name: 'platform',
+          type: 'select',
+          options: [
+            { label: 'TikTok', value: 'tiktok' },
+            { label: 'Instagram', value: 'instagram' },
+            { label: 'YouTube', value: 'youtube' },
+          ],
+        },
+      ],
+    },
+    {
       name: 'testimonial',
       label: 'Testimonial',
       type: 'group',
