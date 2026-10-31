@@ -8,15 +8,28 @@ export const DansUGCModelsLeadMagnets: CollectionConfig = {
     plural: 'Lead Magnets',
   },
   admin: {
-    useAsTitle: 'title',
-    defaultColumns: ['title', 'slug', 'status'],
+    useAsTitle: 'headline',
+    defaultColumns: ['headline', 'slug', 'status'],
   },
   access: {
     read: () => true,
   },
+  hooks: {
+    beforeChange: [
+      ({ data }) => {
+        if (data && data.headline && !data.slug) {
+          data.slug = data.headline
+            .toLowerCase()
+            .replace(/[^a-z0-9]+/g, '-')
+            .replace(/^-|-$/g, '')
+        }
+        return data
+      },
+    ],
+  },
   fields: [
     {
-      name: 'title',
+      name: 'headline',
       type: 'text',
       required: true,
     },
@@ -31,113 +44,38 @@ export const DansUGCModelsLeadMagnets: CollectionConfig = {
       ],
     },
     {
-      name: 'headline',
-      type: 'text',
-    },
-    {
-      name: 'subheadline',
+      name: 'description',
       type: 'textarea',
-    },
-    {
-      name: 'stats',
-      type: 'array',
-      fields: [
-        {
-          name: 'value',
-          type: 'text',
-          required: true,
-        },
-        {
-          name: 'label',
-          type: 'text',
-          required: true,
-        },
-        {
-          name: 'icon',
-          type: 'text',
-        },
-      ],
     },
     {
       name: 'videoExamples',
       type: 'array',
-      fields: [
-        {
-          name: 'videoUrl',
-          type: 'text',
-          required: true,
-        },
-        {
-          name: 'thumbnailUrl',
-          type: 'text',
-        },
-        {
-          name: 'title',
-          type: 'text',
-        },
-        {
-          name: 'views',
-          type: 'text',
-        },
-      ],
-    },
-    {
-      name: 'imageExamples',
-      type: 'array',
-      fields: [
-        {
-          name: 'image',
-          type: 'upload',
-          relationTo: 'media',
-          required: true,
-        },
-        {
-          name: 'caption',
-          type: 'text',
-        },
-      ],
-    },
-    {
-      name: 'offerTitle',
-      type: 'text',
-    },
-    {
-      name: 'offerItems',
-      type: 'array',
-      fields: [
-        {
-          name: 'item',
-          type: 'text',
-          required: true,
-        },
-      ],
-    },
-    {
-      name: 'loopsUserGroup',
-      type: 'text',
       admin: {
-        description: 'Tag for email segmentation',
+        description: 'Enter B-roll video IDs from the database',
       },
+      fields: [
+        {
+          name: 'brollId',
+          type: 'text',
+          required: true,
+          admin: {
+            description: 'The B-roll video ID from the database',
+          },
+        },
+      ],
     },
     {
       name: 'loopsTransactionalId',
       type: 'text',
       admin: {
-        description: 'Email template ID',
+        description: 'Loops transactional email template ID',
       },
     },
     {
-      name: 'metaTitle',
+      name: 'loopsUserGroup',
       type: 'text',
       admin: {
-        description: 'SEO title',
-      },
-    },
-    {
-      name: 'metaDescription',
-      type: 'textarea',
-      admin: {
-        description: 'SEO description',
+        description: 'Loops user group for email segmentation',
       },
     },
   ],

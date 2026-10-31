@@ -765,62 +765,34 @@ export interface CaseStudy {
  */
 export interface DansugcmodelsLeadMagnet {
   id: number;
-  title: string;
+  headline: string;
   /**
    * When enabled, the slug will auto-generate from the title field on save and autosave.
    */
   generateSlug?: boolean | null;
   slug: string;
   status?: ('draft' | 'published') | null;
-  headline?: string | null;
-  subheadline?: string | null;
-  stats?:
-    | {
-        value: string;
-        label: string;
-        icon?: string | null;
-        id?: string | null;
-      }[]
-    | null;
+  description?: string | null;
+  /**
+   * Enter B-roll video IDs from the database
+   */
   videoExamples?:
     | {
-        videoUrl: string;
-        thumbnailUrl?: string | null;
-        title?: string | null;
-        views?: string | null;
-        id?: string | null;
-      }[]
-    | null;
-  imageExamples?:
-    | {
-        image: number | Media;
-        caption?: string | null;
-        id?: string | null;
-      }[]
-    | null;
-  offerTitle?: string | null;
-  offerItems?:
-    | {
-        item: string;
+        /**
+         * The B-roll video ID from the database
+         */
+        brollId: string;
         id?: string | null;
       }[]
     | null;
   /**
-   * Tag for email segmentation
-   */
-  loopsUserGroup?: string | null;
-  /**
-   * Email template ID
+   * Loops transactional email template ID
    */
   loopsTransactionalId?: string | null;
   /**
-   * SEO title
+   * Loops user group for email segmentation
    */
-  metaTitle?: string | null;
-  /**
-   * SEO description
-   */
-  metaDescription?: string | null;
+  loopsUserGroup?: string | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -1268,47 +1240,19 @@ export interface CaseStudiesSelect<T extends boolean = true> {
  * via the `definition` "dansugcmodels-lead-magnets_select".
  */
 export interface DansugcmodelsLeadMagnetsSelect<T extends boolean = true> {
-  title?: T;
+  headline?: T;
   generateSlug?: T;
   slug?: T;
   status?: T;
-  headline?: T;
-  subheadline?: T;
-  stats?:
-    | T
-    | {
-        value?: T;
-        label?: T;
-        icon?: T;
-        id?: T;
-      };
+  description?: T;
   videoExamples?:
     | T
     | {
-        videoUrl?: T;
-        thumbnailUrl?: T;
-        title?: T;
-        views?: T;
+        brollId?: T;
         id?: T;
       };
-  imageExamples?:
-    | T
-    | {
-        image?: T;
-        caption?: T;
-        id?: T;
-      };
-  offerTitle?: T;
-  offerItems?:
-    | T
-    | {
-        item?: T;
-        id?: T;
-      };
-  loopsUserGroup?: T;
   loopsTransactionalId?: T;
-  metaTitle?: T;
-  metaDescription?: T;
+  loopsUserGroup?: T;
   updatedAt?: T;
   createdAt?: T;
 }
