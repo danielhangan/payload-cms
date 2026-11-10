@@ -70,6 +70,7 @@ export interface Config {
     'dansugcmodels-posts': DansugcmodelsPost;
     'case-studies': CaseStudy;
     'dansugcmodels-lead-magnets': DansugcmodelsLeadMagnet;
+    'hotter-posts': HotterPost;
     'dansvpn-posts': DansvpnPost;
     'ugchumans-posts': UgchumansPost;
     'clippersdb-posts': ClippersdbPost;
@@ -88,6 +89,7 @@ export interface Config {
     'dansugcmodels-posts': DansugcmodelsPostsSelect<false> | DansugcmodelsPostsSelect<true>;
     'case-studies': CaseStudiesSelect<false> | CaseStudiesSelect<true>;
     'dansugcmodels-lead-magnets': DansugcmodelsLeadMagnetsSelect<false> | DansugcmodelsLeadMagnetsSelect<true>;
+    'hotter-posts': HotterPostsSelect<false> | HotterPostsSelect<true>;
     'dansvpn-posts': DansvpnPostsSelect<false> | DansvpnPostsSelect<true>;
     'ugchumans-posts': UgchumansPostsSelect<false> | UgchumansPostsSelect<true>;
     'clippersdb-posts': ClippersdbPostsSelect<false> | ClippersdbPostsSelect<true>;
@@ -202,6 +204,10 @@ export interface DansugcmodelsPost {
         | {
             relationTo: 'clippersdb-posts';
             value: number | ClippersdbPost;
+          }
+        | {
+            relationTo: 'hotter-posts';
+            value: number | HotterPost;
           }
       )[]
     | null;
@@ -383,6 +389,10 @@ export interface DansvpnPost {
             relationTo: 'clippersdb-posts';
             value: number | ClippersdbPost;
           }
+        | {
+            relationTo: 'hotter-posts';
+            value: number | HotterPost;
+          }
       )[]
     | null;
   embeds?:
@@ -474,6 +484,10 @@ export interface UgchumansPost {
         | {
             relationTo: 'clippersdb-posts';
             value: number | ClippersdbPost;
+          }
+        | {
+            relationTo: 'hotter-posts';
+            value: number | HotterPost;
           }
       )[]
     | null;
@@ -567,6 +581,10 @@ export interface ClippersdbPost {
             relationTo: 'clippersdb-posts';
             value: number | ClippersdbPost;
           }
+        | {
+            relationTo: 'hotter-posts';
+            value: number | HotterPost;
+          }
       )[]
     | null;
   embeds?:
@@ -585,6 +603,102 @@ export interface ClippersdbPost {
     description?: string | null;
     /**
      * Optional canonical URL on https://clippersdb.com
+     */
+    originalUrl?: string | null;
+  };
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * Articles published on 75hotter.app
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "hotter-posts".
+ */
+export interface HotterPost {
+  id: number;
+  title: string;
+  /**
+   * When enabled, the slug will auto-generate from the title field on save and autosave.
+   */
+  generateSlug?: boolean | null;
+  slug: string;
+  status?: ('draft' | 'published' | 'archived') | null;
+  publishedDate?: string | null;
+  heroMedia?: (number | null) | Media;
+  excerpt?: string | null;
+  content?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  gallery?:
+    | {
+        media: number | Media;
+        caption?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  externalLinks?:
+    | {
+        label: string;
+        url: string;
+        id?: string | null;
+      }[]
+    | null;
+  author?: (number | null) | Author;
+  tags?: (number | Tag)[] | null;
+  categories?: (number | Category)[] | null;
+  relatedArticles?:
+    | (
+        | {
+            relationTo: 'dansvpn-posts';
+            value: number | DansvpnPost;
+          }
+        | {
+            relationTo: 'dansugcmodels-posts';
+            value: number | DansugcmodelsPost;
+          }
+        | {
+            relationTo: 'ugchumans-posts';
+            value: number | UgchumansPost;
+          }
+        | {
+            relationTo: 'clippersdb-posts';
+            value: number | ClippersdbPost;
+          }
+        | {
+            relationTo: 'hotter-posts';
+            value: number | HotterPost;
+          }
+      )[]
+    | null;
+  embeds?:
+    | {
+        type: 'youtube' | 'tweet' | 'link';
+        url: string;
+        title?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  meta?: {
+    site?: string | null;
+    /**
+     * Optional SEO description used for link previews.
+     */
+    description?: string | null;
+    /**
+     * Optional canonical URL on https://75hotter.app
      */
     originalUrl?: string | null;
   };
@@ -850,6 +964,10 @@ export interface PayloadLockedDocument {
         value: number | DansugcmodelsLeadMagnet;
       } | null)
     | ({
+        relationTo: 'hotter-posts';
+        value: number | HotterPost;
+      } | null)
+    | ({
         relationTo: 'dansvpn-posts';
         value: number | DansvpnPost;
       } | null)
@@ -1041,6 +1159,55 @@ export interface DansugcmodelsLeadMagnetsSelect<T extends boolean = true> {
       };
   loopsTransactionalId?: T;
   loopsUserGroup?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "hotter-posts_select".
+ */
+export interface HotterPostsSelect<T extends boolean = true> {
+  title?: T;
+  generateSlug?: T;
+  slug?: T;
+  status?: T;
+  publishedDate?: T;
+  heroMedia?: T;
+  excerpt?: T;
+  content?: T;
+  gallery?:
+    | T
+    | {
+        media?: T;
+        caption?: T;
+        id?: T;
+      };
+  externalLinks?:
+    | T
+    | {
+        label?: T;
+        url?: T;
+        id?: T;
+      };
+  author?: T;
+  tags?: T;
+  categories?: T;
+  relatedArticles?: T;
+  embeds?:
+    | T
+    | {
+        type?: T;
+        url?: T;
+        title?: T;
+        id?: T;
+      };
+  meta?:
+    | T
+    | {
+        site?: T;
+        description?: T;
+        originalUrl?: T;
+      };
   updatedAt?: T;
   createdAt?: T;
 }
