@@ -5,6 +5,7 @@ type Props = { payload: Payload }
 
 const SITES: { slug: CollectionSlug; name: string; domain: string; daily?: boolean }[] = [
   { slug: 'dansugcmodels-posts', name: 'DansUGC', domain: 'dansugc.com', daily: true },
+  { slug: 'hotter-posts', name: '75 Hotter', domain: '75hotter.app', daily: true },
   { slug: 'dansvpn-posts', name: 'DansVPN', domain: 'dansvpn.com' },
   { slug: 'ugchumans-posts', name: 'UGCHumans', domain: 'ugchumans.com' },
   { slug: 'clippersdb-posts', name: 'ClippersDB', domain: 'clippersdb.com' },

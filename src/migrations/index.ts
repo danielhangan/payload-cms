@@ -6,6 +6,7 @@ import * as migration_20260420_163105 from './20260420_163105';
 import * as migration_20260420_163215 from './20260420_163215';
 import * as migration_20260420_180750 from './20260420_180750';
 import * as migration_20261110_093430_payload_3_93 from './20261110_093430_payload_3_93';
+import * as migration_20261110_102836_hotter_blog from './20261110_102836_hotter_blog';
 
 export const migrations = [
   {
@@ -47,5 +48,10 @@ export const migrations = [
     up: migration_20261110_093430_payload_3_93.up,
     down: migration_20261110_093430_payload_3_93.down,
     name: '20261110_093430_payload_3_93',
+  },
+  {
+    up: migration_20261110_102836_hotter_blog.up,
+    down: migration_20261110_102836_hotter_blog.down,
+    name: '20261110_102836_hotter_blog'
   },
 ];

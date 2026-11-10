@@ -19,6 +19,7 @@ import {
   DansUGCModelsPosts,
   UGCHumansPosts,
   ClippersDBPosts,
+  HotterPosts,
 } from './collections/Blogs'
 import { CaseStudies } from './collections/CaseStudies'
 import { DansUGCModelsLeadMagnets } from './collections/DansUGCModelsLeadMagnets'
@@ -95,6 +96,7 @@ export default buildConfig({
     DansUGCModelsPosts,
     CaseStudies,
     DansUGCModelsLeadMagnets,
+    HotterPosts,
     DansVPNPosts,
     UGCHumansPosts,
     ClippersDBPosts,

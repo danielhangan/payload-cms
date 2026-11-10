@@ -6,6 +6,7 @@ const blogSlugs = [
   'dansugcmodels-posts',
   'ugchumans-posts',
   'clippersdb-posts',
+  'hotter-posts',
 ] as const
 
 type BlogSlug = (typeof blogSlugs)[number]
@@ -243,4 +244,12 @@ export const ClippersDBPosts = createBlogCollection({
   displayName: 'ClippersDB',
   group: 'Other sites',
   siteURL: 'https://clippersdb.com',
+})
+
+export const HotterPosts = createBlogCollection({
+  slug: 'hotter-posts',
+  label: '75 Hotter',
+  displayName: '75 Hotter',
+  group: '75 Hotter',
+  siteURL: 'https://75hotter.app',
 })
