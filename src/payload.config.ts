@@ -1,6 +1,6 @@
 // storage-adapter-import-placeholder
 import { sqliteD1Adapter } from '@payloadcms/db-d1-sqlite' // database-adapter-import
-import { lexicalEditor } from '@payloadcms/richtext-lexical'
+import { EXPERIMENTAL_TableFeature, lexicalEditor } from '@payloadcms/richtext-lexical'
 import fs from 'fs'
 import path from 'path'
 import { buildConfig } from 'payload'
@@ -106,7 +106,10 @@ export default buildConfig({
     Categories,
     Users,
   ],
-  editor: lexicalEditor(),
+  // Tables: comparison tables are what AI answers quote most, so articles need them
+  editor: lexicalEditor({
+    features: ({ defaultFeatures }) => [...defaultFeatures, EXPERIMENTAL_TableFeature()],
+  }),
   secret: process.env.PAYLOAD_SECRET || '',
   typescript: {
     outputFile: path.resolve(dirname, 'payload-types.ts'),
