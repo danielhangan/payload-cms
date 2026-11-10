@@ -2,6 +2,7 @@
   "$schema": "node_modules/wrangler/config-schema.json",
   "main": ".open-next/worker.js",
   "name": "payload-cms",
+  "account_id": "542df35b96adc815bb206346b0353c5a",
   "compatibility_date": "2025-08-15",
   "compatibility_flags": [
     // Enable Node.js API

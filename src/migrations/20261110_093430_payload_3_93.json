@@ -137,6 +137,13 @@
           "notNull": false,
           "autoincrement": false
         },
+        "reset_password_requested_at": {
+          "name": "reset_password_requested_at",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
         "login_attempts": {
           "name": "login_attempts",
           "type": "numeric",
@@ -196,6 +203,13 @@
           "type": "text",
           "primaryKey": false,
           "notNull": true,
+          "autoincrement": false
+        },
+        "_objectkey": {
+          "name": "_objectkey",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
           "autoincrement": false
         },
         "updated_at": {
@@ -3986,248 +4000,6 @@
       "uniqueConstraints": {},
       "checkConstraints": {}
     },
-    "dansugcmodels_lead_magnets_stats": {
-      "name": "dansugcmodels_lead_magnets_stats",
-      "columns": {
-        "_order": {
-          "name": "_order",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
-        },
-        "_parent_id": {
-          "name": "_parent_id",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
-        },
-        "id": {
-          "name": "id",
-          "type": "text",
-          "primaryKey": true,
-          "notNull": true,
-          "autoincrement": false
-        },
-        "value": {
-          "name": "value",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
-        },
-        "label": {
-          "name": "label",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
-        },
-        "icon": {
-          "name": "icon",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false
-        }
-      },
-      "indexes": {
-        "dansugcmodels_lead_magnets_stats_order_idx": {
-          "name": "dansugcmodels_lead_magnets_stats_order_idx",
-          "columns": [
-            "_order"
-          ],
-          "isUnique": false
-        },
-        "dansugcmodels_lead_magnets_stats_parent_id_idx": {
-          "name": "dansugcmodels_lead_magnets_stats_parent_id_idx",
-          "columns": [
-            "_parent_id"
-          ],
-          "isUnique": false
-        }
-      },
-      "foreignKeys": {
-        "dansugcmodels_lead_magnets_stats_parent_id_fk": {
-          "name": "dansugcmodels_lead_magnets_stats_parent_id_fk",
-          "tableFrom": "dansugcmodels_lead_magnets_stats",
-          "tableTo": "dansugcmodels_lead_magnets",
-          "columnsFrom": [
-            "_parent_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
-        }
-      },
-      "compositePrimaryKeys": {},
-      "uniqueConstraints": {},
-      "checkConstraints": {}
-    },
-    "dansugcmodels_lead_magnets_offer_items": {
-      "name": "dansugcmodels_lead_magnets_offer_items",
-      "columns": {
-        "_order": {
-          "name": "_order",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
-        },
-        "_parent_id": {
-          "name": "_parent_id",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
-        },
-        "id": {
-          "name": "id",
-          "type": "text",
-          "primaryKey": true,
-          "notNull": true,
-          "autoincrement": false
-        },
-        "item": {
-          "name": "item",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
-        }
-      },
-      "indexes": {
-        "dansugcmodels_lead_magnets_offer_items_order_idx": {
-          "name": "dansugcmodels_lead_magnets_offer_items_order_idx",
-          "columns": [
-            "_order"
-          ],
-          "isUnique": false
-        },
-        "dansugcmodels_lead_magnets_offer_items_parent_id_idx": {
-          "name": "dansugcmodels_lead_magnets_offer_items_parent_id_idx",
-          "columns": [
-            "_parent_id"
-          ],
-          "isUnique": false
-        }
-      },
-      "foreignKeys": {
-        "dansugcmodels_lead_magnets_offer_items_parent_id_fk": {
-          "name": "dansugcmodels_lead_magnets_offer_items_parent_id_fk",
-          "tableFrom": "dansugcmodels_lead_magnets_offer_items",
-          "tableTo": "dansugcmodels_lead_magnets",
-          "columnsFrom": [
-            "_parent_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
-        }
-      },
-      "compositePrimaryKeys": {},
-      "uniqueConstraints": {},
-      "checkConstraints": {}
-    },
-    "dansugcmodels_lead_magnets_image_examples": {
-      "name": "dansugcmodels_lead_magnets_image_examples",
-      "columns": {
-        "_order": {
-          "name": "_order",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
-        },
-        "_parent_id": {
-          "name": "_parent_id",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
-        },
-        "id": {
-          "name": "id",
-          "type": "text",
-          "primaryKey": true,
-          "notNull": true,
-          "autoincrement": false
-        },
-        "image_id": {
-          "name": "image_id",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
-        },
-        "caption": {
-          "name": "caption",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false
-        }
-      },
-      "indexes": {
-        "dansugcmodels_lead_magnets_image_examples_order_idx": {
-          "name": "dansugcmodels_lead_magnets_image_examples_order_idx",
-          "columns": [
-            "_order"
-          ],
-          "isUnique": false
-        },
-        "dansugcmodels_lead_magnets_image_examples_parent_id_idx": {
-          "name": "dansugcmodels_lead_magnets_image_examples_parent_id_idx",
-          "columns": [
-            "_parent_id"
-          ],
-          "isUnique": false
-        },
-        "dansugcmodels_lead_magnets_image_examples_image_idx": {
-          "name": "dansugcmodels_lead_magnets_image_examples_image_idx",
-          "columns": [
-            "image_id"
-          ],
-          "isUnique": false
-        }
-      },
-      "foreignKeys": {
-        "dansugcmodels_lead_magnets_image_examples_image_id_media_id_fk": {
-          "name": "dansugcmodels_lead_magnets_image_examples_image_id_media_id_fk",
-          "tableFrom": "dansugcmodels_lead_magnets_image_examples",
-          "tableTo": "media",
-          "columnsFrom": [
-            "image_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "set null",
-          "onUpdate": "no action"
-        },
-        "dansugcmodels_lead_magnets_image_examples_parent_id_fk": {
-          "name": "dansugcmodels_lead_magnets_image_examples_parent_id_fk",
-          "tableFrom": "dansugcmodels_lead_magnets_image_examples",
-          "tableTo": "dansugcmodels_lead_magnets",
-          "columnsFrom": [
-            "_parent_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
-        }
-      },
-      "compositePrimaryKeys": {},
-      "uniqueConstraints": {},
-      "checkConstraints": {}
-    },
     "dansugcmodels_lead_magnets_video_examples": {
       "name": "dansugcmodels_lead_magnets_video_examples",
       "columns": {
@@ -4252,60 +4024,11 @@
           "notNull": true,
           "autoincrement": false
         },
-        "video_id": {
-          "name": "video_id",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false
-        },
-        "thumbnail_id": {
-          "name": "thumbnail_id",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false
-        },
-        "title": {
-          "name": "title",
+        "broll_id": {
+          "name": "broll_id",
           "type": "text",
           "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false
-        },
-        "emotion": {
-          "name": "emotion",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false
-        },
-        "platform": {
-          "name": "platform",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false
-        },
-        "views": {
-          "name": "views",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false
-        },
-        "video_url": {
-          "name": "video_url",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false
-        },
-        "thumbnail_url": {
-          "name": "thumbnail_url",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false,
+          "notNull": true,
           "autoincrement": false
         }
       },
@@ -4323,49 +4046,9 @@
             "_parent_id"
           ],
           "isUnique": false
-        },
-        "dansugcmodels_lead_magnets_video_examples_video_idx": {
-          "name": "dansugcmodels_lead_magnets_video_examples_video_idx",
-          "columns": [
-            "video_id"
-          ],
-          "isUnique": false
-        },
-        "dansugcmodels_lead_magnets_video_examples_thumbnail_idx": {
-          "name": "dansugcmodels_lead_magnets_video_examples_thumbnail_idx",
-          "columns": [
-            "thumbnail_id"
-          ],
-          "isUnique": false
         }
       },
       "foreignKeys": {
-        "dansugcmodels_lead_magnets_video_examples_video_id_media_id_fk": {
-          "name": "dansugcmodels_lead_magnets_video_examples_video_id_media_id_fk",
-          "tableFrom": "dansugcmodels_lead_magnets_video_examples",
-          "tableTo": "media",
-          "columnsFrom": [
-            "video_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "set null",
-          "onUpdate": "no action"
-        },
-        "dansugcmodels_lead_magnets_video_examples_thumbnail_id_media_id_fk": {
-          "name": "dansugcmodels_lead_magnets_video_examples_thumbnail_id_media_id_fk",
-          "tableFrom": "dansugcmodels_lead_magnets_video_examples",
-          "tableTo": "media",
-          "columnsFrom": [
-            "thumbnail_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "set null",
-          "onUpdate": "no action"
-        },
         "dansugcmodels_lead_magnets_video_examples_parent_id_fk": {
           "name": "dansugcmodels_lead_magnets_video_examples_parent_id_fk",
           "tableFrom": "dansugcmodels_lead_magnets_video_examples",
@@ -4394,8 +4077,8 @@
           "notNull": true,
           "autoincrement": false
         },
-        "title": {
-          "name": "title",
+        "headline": {
+          "name": "headline",
           "type": "text",
           "primaryKey": false,
           "notNull": true,
@@ -4424,93 +4107,8 @@
           "autoincrement": false,
           "default": "'draft'"
         },
-        "category": {
-          "name": "category",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false
-        },
-        "video_count": {
-          "name": "video_count",
-          "type": "numeric",
-          "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false
-        },
-        "headline": {
-          "name": "headline",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false
-        },
-        "subheadline": {
-          "name": "subheadline",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false
-        },
-        "hero_image_id": {
-          "name": "hero_image_id",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false
-        },
-        "offer_title": {
-          "name": "offer_title",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false
-        },
-        "download_file_id": {
-          "name": "download_file_id",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false
-        },
-        "download_url": {
-          "name": "download_url",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false
-        },
-        "success_page_content_type": {
-          "name": "success_page_content_type",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false
-        },
-        "success_page_download_description": {
-          "name": "success_page_download_description",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false
-        },
-        "success_page_show_video_grid": {
-          "name": "success_page_show_video_grid",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false,
-          "default": false
-        },
-        "success_page_custom_message": {
-          "name": "success_page_custom_message",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false
-        },
-        "loops_user_group": {
-          "name": "loops_user_group",
+        "description": {
+          "name": "description",
           "type": "text",
           "primaryKey": false,
           "notNull": false,
@@ -4523,15 +4121,8 @@
           "notNull": false,
           "autoincrement": false
         },
-        "meta_title": {
-          "name": "meta_title",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false
-        },
-        "meta_description": {
-          "name": "meta_description",
+        "loops_user_group": {
+          "name": "loops_user_group",
           "type": "text",
           "primaryKey": false,
           "notNull": false,
@@ -4562,20 +4153,6 @@
           ],
           "isUnique": true
         },
-        "dansugcmodels_lead_magnets_hero_image_idx": {
-          "name": "dansugcmodels_lead_magnets_hero_image_idx",
-          "columns": [
-            "hero_image_id"
-          ],
-          "isUnique": false
-        },
-        "dansugcmodels_lead_magnets_download_file_idx": {
-          "name": "dansugcmodels_lead_magnets_download_file_idx",
-          "columns": [
-            "download_file_id"
-          ],
-          "isUnique": false
-        },
         "dansugcmodels_lead_magnets_updated_at_idx": {
           "name": "dansugcmodels_lead_magnets_updated_at_idx",
           "columns": [
@@ -4591,34 +4168,7 @@
           "isUnique": false
         }
       },
-      "foreignKeys": {
-        "dansugcmodels_lead_magnets_hero_image_id_media_id_fk": {
-          "name": "dansugcmodels_lead_magnets_hero_image_id_media_id_fk",
-          "tableFrom": "dansugcmodels_lead_magnets",
-          "tableTo": "media",
-          "columnsFrom": [
-            "hero_image_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "set null",
-          "onUpdate": "no action"
-        },
-        "dansugcmodels_lead_magnets_download_file_id_media_id_fk": {
-          "name": "dansugcmodels_lead_magnets_download_file_id_media_id_fk",
-          "tableFrom": "dansugcmodels_lead_magnets",
-          "tableTo": "media",
-          "columnsFrom": [
-            "download_file_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "set null",
-          "onUpdate": "no action"
-        }
-      },
+      "foreignKeys": {},
       "compositePrimaryKeys": {},
       "uniqueConstraints": {},
       "checkConstraints": {}
@@ -5337,6 +4887,6 @@
   "internal": {
     "indexes": {}
   },
-  "id": "20825f31-49ba-4da9-8cc6-db9c0fd22e01",
+  "id": "85277f90-f8c1-4e27-8d2d-d11fd1a36350",
   "prevId": "00000000-0000-0000-0000-000000000000"
 }
