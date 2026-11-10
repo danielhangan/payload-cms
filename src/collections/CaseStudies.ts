@@ -8,6 +8,8 @@ export const CaseStudies: CollectionConfig = {
     plural: 'Case Studies',
   },
   admin: {
+    group: 'DansUGC',
+    description: 'Customer stories, shown on the site picked in each entry',
     useAsTitle: 'title',
     defaultColumns: ['title', 'site', 'status', 'publishedDate', 'clientName'],
   },
@@ -24,6 +26,9 @@ export const CaseStudies: CollectionConfig = {
     {
       name: 'status',
       type: 'select',
+      admin: {
+        components: { Cell: '/components/admin/StatusCell' },
+      },
       defaultValue: 'draft',
       options: [
         { label: 'Draft', value: 'draft' },

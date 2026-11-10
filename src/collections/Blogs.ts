@@ -13,20 +13,31 @@ type BlogSlug = (typeof blogSlugs)[number]
 const createBlogCollection = ({
   slug,
   label,
+  displayName,
+  group,
   siteURL,
+  domain,
 }: {
   slug: BlogSlug
+  /** Stored as the default `meta.site` value, so keep it stable */
   label: string
+  /** What the admin shows */
+  displayName: string
+  group: string
   siteURL: string
+  /** Public domain shown in the admin, when it differs from siteURL */
+  domain?: string
 }): CollectionConfig => ({
   slug,
   labels: {
-    singular: `${label} Post`,
-    plural: `${label} Posts`,
+    singular: `${displayName} post`,
+    plural: `${displayName} blog`,
   },
   admin: {
+    group,
     useAsTitle: 'title',
     defaultColumns: ['title', 'status', 'publishedDate', 'author'],
+    description: `Articles published on ${domain ?? siteURL.replace('https://', '')}`,
   },
   access: {
     read: () => true,
@@ -42,6 +53,9 @@ const createBlogCollection = ({
       name: 'status',
       type: 'select',
       defaultValue: 'draft',
+      admin: {
+        components: { Cell: '/components/admin/StatusCell' },
+      },
       options: [
         {
           label: 'Draft',
@@ -201,23 +215,32 @@ const createBlogCollection = ({
 export const DansVPNPosts = createBlogCollection({
   slug: 'dansvpn-posts',
   label: 'DansVPN',
+  displayName: 'DansVPN',
+  group: 'Other sites',
   siteURL: 'https://dansvpn.com',
 })
 
 export const DansUGCModelsPosts = createBlogCollection({
   slug: 'dansugcmodels-posts',
   label: 'DansUGCModels',
+  displayName: 'DansUGC',
+  group: 'DansUGC',
   siteURL: 'https://dansugcmodels.com',
+  domain: 'dansugc.com',
 })
 
 export const UGCHumansPosts = createBlogCollection({
   slug: 'ugchumans-posts',
   label: 'UGCHumans',
+  displayName: 'UGCHumans',
+  group: 'Other sites',
   siteURL: 'https://ugchumans.com',
 })
 
 export const ClippersDBPosts = createBlogCollection({
   slug: 'clippersdb-posts',
   label: 'ClippersDB',
+  displayName: 'ClippersDB',
+  group: 'Other sites',
   siteURL: 'https://clippersdb.com',
 })

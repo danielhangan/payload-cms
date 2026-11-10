@@ -67,17 +67,17 @@ export interface Config {
   };
   blocks: {};
   collections: {
-    users: User;
+    'dansugcmodels-posts': DansugcmodelsPost;
+    'case-studies': CaseStudy;
+    'dansugcmodels-lead-magnets': DansugcmodelsLeadMagnet;
+    'dansvpn-posts': DansvpnPost;
+    'ugchumans-posts': UgchumansPost;
+    'clippersdb-posts': ClippersdbPost;
     media: Media;
     authors: Author;
     tags: Tag;
     categories: Category;
-    'dansvpn-posts': DansvpnPost;
-    'dansugcmodels-posts': DansugcmodelsPost;
-    'ugchumans-posts': UgchumansPost;
-    'clippersdb-posts': ClippersdbPost;
-    'case-studies': CaseStudy;
-    'dansugcmodels-lead-magnets': DansugcmodelsLeadMagnet;
+    users: User;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -85,17 +85,17 @@ export interface Config {
   };
   collectionsJoins: {};
   collectionsSelect: {
-    users: UsersSelect<false> | UsersSelect<true>;
+    'dansugcmodels-posts': DansugcmodelsPostsSelect<false> | DansugcmodelsPostsSelect<true>;
+    'case-studies': CaseStudiesSelect<false> | CaseStudiesSelect<true>;
+    'dansugcmodels-lead-magnets': DansugcmodelsLeadMagnetsSelect<false> | DansugcmodelsLeadMagnetsSelect<true>;
+    'dansvpn-posts': DansvpnPostsSelect<false> | DansvpnPostsSelect<true>;
+    'ugchumans-posts': UgchumansPostsSelect<false> | UgchumansPostsSelect<true>;
+    'clippersdb-posts': ClippersdbPostsSelect<false> | ClippersdbPostsSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
     authors: AuthorsSelect<false> | AuthorsSelect<true>;
     tags: TagsSelect<false> | TagsSelect<true>;
     categories: CategoriesSelect<false> | CategoriesSelect<true>;
-    'dansvpn-posts': DansvpnPostsSelect<false> | DansvpnPostsSelect<true>;
-    'dansugcmodels-posts': DansugcmodelsPostsSelect<false> | DansugcmodelsPostsSelect<true>;
-    'ugchumans-posts': UgchumansPostsSelect<false> | UgchumansPostsSelect<true>;
-    'clippersdb-posts': ClippersdbPostsSelect<false> | ClippersdbPostsSelect<true>;
-    'case-studies': CaseStudiesSelect<false> | CaseStudiesSelect<true>;
-    'dansugcmodels-lead-magnets': DansugcmodelsLeadMagnetsSelect<false> | DansugcmodelsLeadMagnetsSelect<true>;
+    users: UsersSelect<false> | UsersSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
@@ -104,12 +104,14 @@ export interface Config {
   db: {
     defaultIDType: number;
   };
+  fallbackLocale: null;
   globals: {};
   globalsSelect: {};
   locale: null;
-  user: User & {
-    collection: 'users';
+  widgets: {
+    collections: CollectionsWidget;
   };
+  user: User;
   jobs: {
     tasks: unknown;
     workflows: unknown;
@@ -134,207 +136,8 @@ export interface UserAuthOperations {
   };
 }
 /**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "users".
- */
-export interface User {
-  id: number;
-  updatedAt: string;
-  createdAt: string;
-  email: string;
-  resetPasswordToken?: string | null;
-  resetPasswordExpiration?: string | null;
-  salt?: string | null;
-  hash?: string | null;
-  loginAttempts?: number | null;
-  lockUntil?: string | null;
-  sessions?:
-    | {
-        id: string;
-        createdAt?: string | null;
-        expiresAt: string;
-      }[]
-    | null;
-  password?: string | null;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "media".
- */
-export interface Media {
-  id: number;
-  alt: string;
-  updatedAt: string;
-  createdAt: string;
-  url?: string | null;
-  thumbnailURL?: string | null;
-  filename?: string | null;
-  mimeType?: string | null;
-  filesize?: number | null;
-  width?: number | null;
-  height?: number | null;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "authors".
- */
-export interface Author {
-  id: number;
-  name: string;
-  role?: string | null;
-  bio?: {
-    root: {
-      type: string;
-      children: {
-        type: any;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  avatar?: (number | null) | Media;
-  links?:
-    | {
-        label: string;
-        url: string;
-        id?: string | null;
-      }[]
-    | null;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "tags".
- */
-export interface Tag {
-  id: number;
-  label: string;
-  /**
-   * When enabled, the slug will auto-generate from the title field on save and autosave.
-   */
-  generateSlug?: boolean | null;
-  slug: string;
-  /**
-   * Optional color token or hex for front-end styling
-   */
-  color?: string | null;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "categories".
- */
-export interface Category {
-  id: number;
-  label: string;
-  /**
-   * When enabled, the slug will auto-generate from the title field on save and autosave.
-   */
-  generateSlug?: boolean | null;
-  slug: string;
-  description?: string | null;
-  icon?: string | null;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "dansvpn-posts".
- */
-export interface DansvpnPost {
-  id: number;
-  title: string;
-  /**
-   * When enabled, the slug will auto-generate from the title field on save and autosave.
-   */
-  generateSlug?: boolean | null;
-  slug: string;
-  status?: ('draft' | 'published' | 'archived') | null;
-  publishedDate?: string | null;
-  heroMedia?: (number | null) | Media;
-  excerpt?: string | null;
-  content?: {
-    root: {
-      type: string;
-      children: {
-        type: any;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  gallery?:
-    | {
-        media: number | Media;
-        caption?: string | null;
-        id?: string | null;
-      }[]
-    | null;
-  externalLinks?:
-    | {
-        label: string;
-        url: string;
-        id?: string | null;
-      }[]
-    | null;
-  author?: (number | null) | Author;
-  tags?: (number | Tag)[] | null;
-  categories?: (number | Category)[] | null;
-  relatedArticles?:
-    | (
-        | {
-            relationTo: 'dansvpn-posts';
-            value: number | DansvpnPost;
-          }
-        | {
-            relationTo: 'dansugcmodels-posts';
-            value: number | DansugcmodelsPost;
-          }
-        | {
-            relationTo: 'ugchumans-posts';
-            value: number | UgchumansPost;
-          }
-        | {
-            relationTo: 'clippersdb-posts';
-            value: number | ClippersdbPost;
-          }
-      )[]
-    | null;
-  embeds?:
-    | {
-        type: 'youtube' | 'tweet' | 'link';
-        url: string;
-        title?: string | null;
-        id?: string | null;
-      }[]
-    | null;
-  meta?: {
-    site?: string | null;
-    /**
-     * Optional SEO description used for link previews.
-     */
-    description?: string | null;
-    /**
-     * Optional canonical URL on https://dansvpn.com
-     */
-    originalUrl?: string | null;
-  };
-  updatedAt: string;
-  createdAt: string;
-}
-/**
+ * Articles published on dansugc.com
+ *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "dansugcmodels-posts".
  */
@@ -426,6 +229,188 @@ export interface DansugcmodelsPost {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "media".
+ */
+export interface Media {
+  id: number;
+  alt: string;
+  _objectKey?: string | null;
+  updatedAt: string;
+  createdAt: string;
+  url?: string | null;
+  thumbnailURL?: string | null;
+  filename?: string | null;
+  mimeType?: string | null;
+  filesize?: number | null;
+  width?: number | null;
+  height?: number | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "authors".
+ */
+export interface Author {
+  id: number;
+  name: string;
+  role?: string | null;
+  bio?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  avatar?: (number | null) | Media;
+  links?:
+    | {
+        label: string;
+        url: string;
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "tags".
+ */
+export interface Tag {
+  id: number;
+  label: string;
+  /**
+   * When enabled, the slug will auto-generate from the title field on save and autosave.
+   */
+  generateSlug?: boolean | null;
+  slug: string;
+  /**
+   * Optional color token or hex for front-end styling
+   */
+  color?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "categories".
+ */
+export interface Category {
+  id: number;
+  label: string;
+  /**
+   * When enabled, the slug will auto-generate from the title field on save and autosave.
+   */
+  generateSlug?: boolean | null;
+  slug: string;
+  description?: string | null;
+  icon?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * Articles published on dansvpn.com
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "dansvpn-posts".
+ */
+export interface DansvpnPost {
+  id: number;
+  title: string;
+  /**
+   * When enabled, the slug will auto-generate from the title field on save and autosave.
+   */
+  generateSlug?: boolean | null;
+  slug: string;
+  status?: ('draft' | 'published' | 'archived') | null;
+  publishedDate?: string | null;
+  heroMedia?: (number | null) | Media;
+  excerpt?: string | null;
+  content?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  gallery?:
+    | {
+        media: number | Media;
+        caption?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  externalLinks?:
+    | {
+        label: string;
+        url: string;
+        id?: string | null;
+      }[]
+    | null;
+  author?: (number | null) | Author;
+  tags?: (number | Tag)[] | null;
+  categories?: (number | Category)[] | null;
+  relatedArticles?:
+    | (
+        | {
+            relationTo: 'dansvpn-posts';
+            value: number | DansvpnPost;
+          }
+        | {
+            relationTo: 'dansugcmodels-posts';
+            value: number | DansugcmodelsPost;
+          }
+        | {
+            relationTo: 'ugchumans-posts';
+            value: number | UgchumansPost;
+          }
+        | {
+            relationTo: 'clippersdb-posts';
+            value: number | ClippersdbPost;
+          }
+      )[]
+    | null;
+  embeds?:
+    | {
+        type: 'youtube' | 'tweet' | 'link';
+        url: string;
+        title?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  meta?: {
+    site?: string | null;
+    /**
+     * Optional SEO description used for link previews.
+     */
+    description?: string | null;
+    /**
+     * Optional canonical URL on https://dansvpn.com
+     */
+    originalUrl?: string | null;
+  };
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * Articles published on ugchumans.com
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "ugchumans-posts".
  */
 export interface UgchumansPost {
@@ -515,6 +500,8 @@ export interface UgchumansPost {
   createdAt: string;
 }
 /**
+ * Articles published on clippersdb.com
+ *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "clippersdb-posts".
  */
@@ -605,6 +592,8 @@ export interface ClippersdbPost {
   createdAt: string;
 }
 /**
+ * Customer stories, shown on the site picked in each entry
+ *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "case-studies".
  */
@@ -760,6 +749,8 @@ export interface CaseStudy {
   createdAt: string;
 }
 /**
+ * Free downloads that collect emails on dansugc.com
+ *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "dansugcmodels-lead-magnets".
  */
@@ -798,6 +789,32 @@ export interface DansugcmodelsLeadMagnet {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "users".
+ */
+export interface User {
+  id: number;
+  updatedAt: string;
+  createdAt: string;
+  email: string;
+  resetPasswordToken?: string | null;
+  resetPasswordExpiration?: string | null;
+  salt?: string | null;
+  hash?: string | null;
+  resetPasswordRequestedAt?: string | null;
+  loginAttempts?: number | null;
+  lockUntil?: string | null;
+  sessions?:
+    | {
+        id: string;
+        createdAt?: string | null;
+        expiresAt: string;
+      }[]
+    | null;
+  password?: string | null;
+  collection: 'users';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-kv".
  */
 export interface PayloadKv {
@@ -821,8 +838,28 @@ export interface PayloadLockedDocument {
   id: number;
   document?:
     | ({
-        relationTo: 'users';
-        value: number | User;
+        relationTo: 'dansugcmodels-posts';
+        value: number | DansugcmodelsPost;
+      } | null)
+    | ({
+        relationTo: 'case-studies';
+        value: number | CaseStudy;
+      } | null)
+    | ({
+        relationTo: 'dansugcmodels-lead-magnets';
+        value: number | DansugcmodelsLeadMagnet;
+      } | null)
+    | ({
+        relationTo: 'dansvpn-posts';
+        value: number | DansvpnPost;
+      } | null)
+    | ({
+        relationTo: 'ugchumans-posts';
+        value: number | UgchumansPost;
+      } | null)
+    | ({
+        relationTo: 'clippersdb-posts';
+        value: number | ClippersdbPost;
       } | null)
     | ({
         relationTo: 'media';
@@ -841,28 +878,8 @@ export interface PayloadLockedDocument {
         value: number | Category;
       } | null)
     | ({
-        relationTo: 'dansvpn-posts';
-        value: number | DansvpnPost;
-      } | null)
-    | ({
-        relationTo: 'dansugcmodels-posts';
-        value: number | DansugcmodelsPost;
-      } | null)
-    | ({
-        relationTo: 'ugchumans-posts';
-        value: number | UgchumansPost;
-      } | null)
-    | ({
-        relationTo: 'clippersdb-posts';
-        value: number | ClippersdbPost;
-      } | null)
-    | ({
-        relationTo: 'case-studies';
-        value: number | CaseStudy;
-      } | null)
-    | ({
-        relationTo: 'dansugcmodels-lead-magnets';
-        value: number | DansugcmodelsLeadMagnet;
+        relationTo: 'users';
+        value: number | User;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -908,91 +925,9 @@ export interface PayloadMigration {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "users_select".
+ * via the `definition` "dansugcmodels-posts_select".
  */
-export interface UsersSelect<T extends boolean = true> {
-  updatedAt?: T;
-  createdAt?: T;
-  email?: T;
-  resetPasswordToken?: T;
-  resetPasswordExpiration?: T;
-  salt?: T;
-  hash?: T;
-  loginAttempts?: T;
-  lockUntil?: T;
-  sessions?:
-    | T
-    | {
-        id?: T;
-        createdAt?: T;
-        expiresAt?: T;
-      };
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "media_select".
- */
-export interface MediaSelect<T extends boolean = true> {
-  alt?: T;
-  updatedAt?: T;
-  createdAt?: T;
-  url?: T;
-  thumbnailURL?: T;
-  filename?: T;
-  mimeType?: T;
-  filesize?: T;
-  width?: T;
-  height?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "authors_select".
- */
-export interface AuthorsSelect<T extends boolean = true> {
-  name?: T;
-  role?: T;
-  bio?: T;
-  avatar?: T;
-  links?:
-    | T
-    | {
-        label?: T;
-        url?: T;
-        id?: T;
-      };
-  updatedAt?: T;
-  createdAt?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "tags_select".
- */
-export interface TagsSelect<T extends boolean = true> {
-  label?: T;
-  generateSlug?: T;
-  slug?: T;
-  color?: T;
-  updatedAt?: T;
-  createdAt?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "categories_select".
- */
-export interface CategoriesSelect<T extends boolean = true> {
-  label?: T;
-  generateSlug?: T;
-  slug?: T;
-  description?: T;
-  icon?: T;
-  updatedAt?: T;
-  createdAt?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "dansvpn-posts_select".
- */
-export interface DansvpnPostsSelect<T extends boolean = true> {
+export interface DansugcmodelsPostsSelect<T extends boolean = true> {
   title?: T;
   generateSlug?: T;
   slug?: T;
@@ -1039,9 +974,81 @@ export interface DansvpnPostsSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "dansugcmodels-posts_select".
+ * via the `definition` "case-studies_select".
  */
-export interface DansugcmodelsPostsSelect<T extends boolean = true> {
+export interface CaseStudiesSelect<T extends boolean = true> {
+  title?: T;
+  generateSlug?: T;
+  slug?: T;
+  status?: T;
+  site?: T;
+  publishedDate?: T;
+  appLogo?: T;
+  heroMedia?: T;
+  clientName?: T;
+  industry?: T;
+  about?: T;
+  challenge?: T;
+  howTheyUsedDansUGC?: T;
+  resultsAchieved?: T;
+  results?:
+    | T
+    | {
+        label?: T;
+        value?: T;
+        id?: T;
+      };
+  creatives?:
+    | T
+    | {
+        video?: T;
+        title?: T;
+        subtitle?: T;
+        description?: T;
+        views?: T;
+        saves?: T;
+        thumbstopRate?: T;
+        platform?: T;
+        id?: T;
+      };
+  author?: T;
+  tags?: T;
+  categories?: T;
+  relatedPosts?: T;
+  meta?:
+    | T
+    | {
+        originalUrl?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "dansugcmodels-lead-magnets_select".
+ */
+export interface DansugcmodelsLeadMagnetsSelect<T extends boolean = true> {
+  headline?: T;
+  generateSlug?: T;
+  slug?: T;
+  status?: T;
+  description?: T;
+  videoExamples?:
+    | T
+    | {
+        brollId?: T;
+        id?: T;
+      };
+  loopsTransactionalId?: T;
+  loopsUserGroup?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "dansvpn-posts_select".
+ */
+export interface DansvpnPostsSelect<T extends boolean = true> {
   title?: T;
   generateSlug?: T;
   slug?: T;
@@ -1186,75 +1193,87 @@ export interface ClippersdbPostsSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "case-studies_select".
+ * via the `definition` "media_select".
  */
-export interface CaseStudiesSelect<T extends boolean = true> {
-  title?: T;
-  generateSlug?: T;
-  slug?: T;
-  status?: T;
-  site?: T;
-  publishedDate?: T;
-  appLogo?: T;
-  heroMedia?: T;
-  clientName?: T;
-  industry?: T;
-  about?: T;
-  challenge?: T;
-  howTheyUsedDansUGC?: T;
-  resultsAchieved?: T;
-  results?:
+export interface MediaSelect<T extends boolean = true> {
+  alt?: T;
+  _objectKey?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  url?: T;
+  thumbnailURL?: T;
+  filename?: T;
+  mimeType?: T;
+  filesize?: T;
+  width?: T;
+  height?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "authors_select".
+ */
+export interface AuthorsSelect<T extends boolean = true> {
+  name?: T;
+  role?: T;
+  bio?: T;
+  avatar?: T;
+  links?:
     | T
     | {
         label?: T;
-        value?: T;
+        url?: T;
         id?: T;
-      };
-  creatives?:
-    | T
-    | {
-        video?: T;
-        title?: T;
-        subtitle?: T;
-        description?: T;
-        views?: T;
-        saves?: T;
-        thumbstopRate?: T;
-        platform?: T;
-        id?: T;
-      };
-  author?: T;
-  tags?: T;
-  categories?: T;
-  relatedPosts?: T;
-  meta?:
-    | T
-    | {
-        originalUrl?: T;
       };
   updatedAt?: T;
   createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "dansugcmodels-lead-magnets_select".
+ * via the `definition` "tags_select".
  */
-export interface DansugcmodelsLeadMagnetsSelect<T extends boolean = true> {
-  headline?: T;
+export interface TagsSelect<T extends boolean = true> {
+  label?: T;
   generateSlug?: T;
   slug?: T;
-  status?: T;
-  description?: T;
-  videoExamples?:
-    | T
-    | {
-        brollId?: T;
-        id?: T;
-      };
-  loopsTransactionalId?: T;
-  loopsUserGroup?: T;
+  color?: T;
   updatedAt?: T;
   createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "categories_select".
+ */
+export interface CategoriesSelect<T extends boolean = true> {
+  label?: T;
+  generateSlug?: T;
+  slug?: T;
+  description?: T;
+  icon?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "users_select".
+ */
+export interface UsersSelect<T extends boolean = true> {
+  updatedAt?: T;
+  createdAt?: T;
+  email?: T;
+  resetPasswordToken?: T;
+  resetPasswordExpiration?: T;
+  salt?: T;
+  hash?: T;
+  resetPasswordRequestedAt?: T;
+  loginAttempts?: T;
+  lockUntil?: T;
+  sessions?:
+    | T
+    | {
+        id?: T;
+        createdAt?: T;
+        expiresAt?: T;
+      };
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1295,6 +1314,16 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
   batch?: T;
   updatedAt?: T;
   createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "collections_widget".
+ */
+export interface CollectionsWidget {
+  data?: {
+    [k: string]: unknown;
+  };
+  width: 'full';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

@@ -4,6 +4,7 @@ import { slugField } from 'payload'
 export const Tags: CollectionConfig = {
   slug: 'tags',
   admin: {
+    group: 'Shared library',
     useAsTitle: 'label',
     defaultColumns: ['label', 'slug', 'color'],
   },

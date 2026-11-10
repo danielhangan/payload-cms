@@ -8,6 +8,8 @@ export const DansUGCModelsLeadMagnets: CollectionConfig = {
     plural: 'Lead Magnets',
   },
   admin: {
+    group: 'DansUGC',
+    description: 'Free downloads that collect emails on dansugc.com',
     useAsTitle: 'headline',
     defaultColumns: ['headline', 'slug', 'status'],
   },
@@ -37,6 +39,9 @@ export const DansUGCModelsLeadMagnets: CollectionConfig = {
     {
       name: 'status',
       type: 'select',
+      admin: {
+        components: { Cell: '/components/admin/StatusCell' },
+      },
       defaultValue: 'draft',
       options: [
         { label: 'Draft', value: 'draft' },
