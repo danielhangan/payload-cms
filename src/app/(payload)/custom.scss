@@ -1,10 +1,12 @@
 // Dan's CMS — admin theme on top of Payload's defaults.
 // Warm neutrals, Geist type, DansUGC indigo as the one accent colour. Works in light and dark.
-@import url('https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap');
+// Self-hosted: a remote @import ends up mid-bundle in production and browsers ignore it
+@import '@fontsource-variable/geist/index';
+@import '@fontsource-variable/geist-mono/index';
 
 :root {
-  --font-body: 'Geist', system-ui, -apple-system, 'Segoe UI', sans-serif;
-  --font-mono: 'Geist Mono', ui-monospace, SFMono-Regular, monospace;
+  --font-body: 'Geist Variable', 'Geist', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-mono: 'Geist Mono Variable', 'Geist Mono', ui-monospace, SFMono-Regular, monospace;
   --style-radius-s: 6px;
   --style-radius-m: 10px;
   --style-radius-l: 14px;
